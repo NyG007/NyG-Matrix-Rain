@@ -1,0 +1,31 @@
+/* ============================================ */
+/* Matrix Rain — style.css */                    /* file identification */
+/* Issue #1: Initial project setup */            /* issue reference */
+/* ============================================ */ 
+
+*, *::before, *::after {                         /* select all elements and pseudo-elements */
+  box-sizing: border-box;                        /* include padding and border in final size */
+  margin: 0;                                     /* remove default outer spacing */
+  padding: 0;                                    /* remove default inner spacing */
+}
+
+:root {                                          /* global CSS variables */
+  --bg: #000000;                               /* main background color */
+  --font-size: 16px;                             /* base font size for matrix characters */
+}
+
+html, body {                                     /* target page root and body */
+  width: 100%;                                   /* fill full viewport width */
+  height: 100%;                                  /* fill full viewport height */
+  overflow: hidden;                              /* prevent scrollbars */
+  background-color: var(--bg);                   /* apply black background */
+}
+
+#matrix {                                        /* target the canvas element */
+  display: block;                                /* remove inline canvas gap */
+  width: 100vw;                                  /* fill viewport width */
+  height: 100vh;                                 /* fill viewport height */
+  position: fixed;                               /* keep canvas locked to screen */
+  top: 0;                                        /* align to top edge */
+  left: 0;                                       /* align to left edge */
+}
