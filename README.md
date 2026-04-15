@@ -29,7 +29,7 @@
 
 ## 🚀 Live Demo
 
-👉 [YOUR_USERNAME.github.io/matrix-rain](https://YOUR_USERNAME.github.io/matrix-rain)
+👉 
 
 ***
 
@@ -103,7 +103,7 @@ open index.html
 
 ## 📋 Issues
 
-All features are tracked via [GitHub Issues](https://github.com/YOUR_USERNAME/matrix-rain/issues) using the project board.
+All features are tracked via using the project board.
 
 ***
 
