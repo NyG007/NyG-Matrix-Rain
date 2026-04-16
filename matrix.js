@@ -20,7 +20,7 @@ const THEMES = {
     green : { color: '#00FF41', headColor: '#1dfc00' }, // classic matrix green
     red   : { color: '#FF2020', headColor: '#ff0000' }, // red variant
     pink  : { color: '#e40373', headColor: '#ff27be' }, // pink variant
-};
+}; 
 
 let currentTheme = THEMES.green;                            // active theme green by default
 let cols = 0;                                               // total number of columns
@@ -75,6 +75,11 @@ function setDensity(size) {
 }
 
 init();                                                      // prepare initial state
-let animationLoop = setInterval(draw, CONFIG.speed);                             // store interval so we can restart it 
+let animationLoop = setInterval(draw, CONFIG.speed);         // store interval so we can restart it 
+let resizeTimer = null;                                      // timer reference for debounce
 
-window.addEventListener('resize', init);                     // rebuild layout on resize
+window.addEventListener('resize', () => {                    // listen for window resize
+  clearTimeout(resizeTimer);                                 // cancel previous pending call
+  resizeTimer = setTimeout(init, 150);                       // wait 150ms before reinitializing
+});
+
