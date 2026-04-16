@@ -62,7 +62,19 @@ function setTheme(name) {                                    // switch active co
     currentTheme = THEMES[name] ?? THEMES.green;             // fallback to green if name is valid
 }
 
+function setSpeed(ms) {
+    CONFIG.speed = ms;
+    clearInterval(animationLoop);
+    animationLoop = setInterval(draw, ms);
+}
+
+function setDensity(size) {
+    CONFIG.fontSize = size;
+    ctx.font = `${size}px monospace`;
+    init();
+}
+
 init();                                                      // prepare initial state
-setInterval(draw, CONFIG.speed);                             // start animation loop
+let animationLoop = setInterval(draw, CONFIG.speed);                             // store interval so we can restart it 
 
 window.addEventListener('resize', init);                     // rebuild layout on resize

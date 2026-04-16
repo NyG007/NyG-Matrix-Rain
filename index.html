@@ -1,21 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
   <head>
-    <meta charset="UTF-8" />           <!-- UTF-8 for Katakana support -->
-    <meta name="viewport" ... />       <!-- responsive viewport -->
+    <meta charset="UTF-8" />                        <!-- UTF-8 for Katakana support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Matrix Rain — animated falling characters" />
     <title>NyG Matrix Rain</title>
-    <link rel="stylesheet" href="style.css" />   <!-- external styles -->
+    <link rel="stylesheet" href="style.css" />      <!-- external styles -->
   </head>
   <body>
 
-    <canvas id="matrix"></canvas>      <!-- main render target -->
-    
-    <div id="theme-controls">                                                   <!-- theme button container -->
-      <button onclick="setTheme('green')" class="btn green">🟢 Green</button>  <!-- switch to green -->
-      <button onclick="setTheme('red')"   class="btn red">🔴 Red</button>      <!-- switch to red -->
-      <button onclick="setTheme('pink')"  class="btn pink">🌸 Pink</button>    <!-- switch to pink -->
+    <canvas id="matrix"></canvas>                   <!-- main render target -->
+
+    <div id="theme-controls">                       <!-- theme button container -->
+      <button onclick="setTheme('green')" class="btn green">🟢 Green</button>
+      <button onclick="setTheme('red')"   class="btn red">🔴 Red</button>
+      <button onclick="setTheme('pink')"  class="btn pink">🌸 Pink</button>
     </div>
-    
-    <script src="matrix.js" defer></script>  <!-- defer keeps DOM ready before script runs -->
+
+    <div id="controls">                             <!-- controls panel wrapper -->
+      <label for="speed-slider">
+        Speed: <span id="speed-value">50</span>ms  <!-- live value display -->
+      </label>
+      <input id="speed-slider" type="range"
+        min="10" max="200" value="50" step="10"
+        oninput="
+          document.getElementById('speed-value').textContent = this.value;
+          setSpeed(Number(this.value));
+        "
+      />
+
+      <label for="density-slider">
+        Density: <span id="density-value">16</span>px
+      </label>
+      <input id="density-slider" type="range"
+        min="8" max="32" value="16" step="2"
+        oninput="
+          document.getElementById('density-value').textContent = this.value;
+          setDensity(Number(this.value));
+        "
+      />
+    </div>
+
+    <script src="matrix.js" defer></script>         <!-- defer keeps DOM ready -->
   </body>
 </html>

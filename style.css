@@ -56,3 +56,30 @@ html, body {                                     /* target page root and body */
 .btn.green  { border-color: #00FF41; color: #00FF41; }  /* green theme accent */
 .btn.red    { border-color: #FF2020; color: #FF2020; }  /* red theme accent */
 .btn.pink   { border-color: #FF69B4; color: #FF69B4; }  /* pink theme accent */
+
+#controls {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.075);
+  padding: 14px 18px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(#255,#255,#255,0.08);
+}
+
+#controls label {
+  font-size: 12px;
+  color: #ffffff;
+  font-family: monospace;
+}
+
+#controls input[type="range"] {
+  width: 160px;
+  accent-color: #00FF41;
+  cursor: pointer;
+}
