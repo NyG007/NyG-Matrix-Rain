@@ -1,52 +1,68 @@
-const canvas = document.getElementById('matrix')
-const ctx = canvas.getContext('2d')
+// ============================================ // 
+// Matrix Rain — matrix.js                      // file identification
+// ============================================ // 
 
-const CHARS =                                      // available character pool
+const canvas = document.getElementById('matrix');           // grab canvas element from DOM
+const ctx = canvas.getContext('2d');                        // get 2D drawing context
+
+const CHARS =                                                // available character pool
   'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン' + // katakana chars
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +                   // latin uppercase chars
-  '0123456789' + '♥☻☺♫☼α';                    // numeric chars
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +                            // latin uppercase chars
+  '0123456789';                                             // numeric chars
 
-const CONFIG = {
-    fontSize: 16,
-    speed: 50,
-    fadeAlpha: 0.05,
-    color: '#00FF41',
-    headColor: '#FFFFFF',
+const CONFIG = {                                            // main animation settings
+  fontSize: 16,                                             // character size in pixels
+  speed: 50,                                                // frame delay in milliseconds
+  fadeAlpha: 0.05,                                          // trail fade strength
+};
+
+const THEMES = {
+    green : { color: '#00FF41', headColor: '#1dfc00' }, // classic matrix green
+    red   : { color: '#FF2020', headColor: '#ff0000' }, // red variant
+    pink  : { color: '#e40373', headColor: '#ff27be' }, // pink variant
+};
+
+let currentTheme = THEMES.green;                            // active theme green by default
+let cols = 0;                                               // total number of columns
+let drops = [];                                             // y position for each column
+
+function init() {                                           // initialize canvas and rain state
+  canvas.width = window.innerWidth;                         // sync canvas width with viewport
+  canvas.height = window.innerHeight;                       // sync canvas height with viewport
+  cols = Math.floor(canvas.width / CONFIG.fontSize);        // calculate column count
+  drops = Array.from({ length: cols }, () =>                // create one drop per column
+    Math.floor(Math.random() * -50)                         // start above visible area
+  );
 }
 
-let cols = 0;
-let drops = [];
+function draw() {                                           // render one animation frame
+  ctx.fillStyle = `rgba(0, 0, 0, ${CONFIG.fadeAlpha})`;     // set fading overlay color
+  ctx.fillRect(0, 0, canvas.width, canvas.height);          // paint overlay on full canvas
 
-function init() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    cols = Math.floor(canvas.width / CONFIG.fontSize);
-    drops = Array.from({ length: cols }, () => 
-    Math.floor(Math.random() * -50));
-}
+  ctx.font = `${CONFIG.fontSize}px monospace`;              // set font style for characters
 
-function draw() {
-    ctx.fillStyle = `rgba(0, 0, 0, ${CONFIG.fadeAlpha})`;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = `${CONFIG.fontSze}px monospace`;
-    
-    for (let i = 0; i < drops.length; i++) {
-        const char = CHARS[Math.floor(Math.random() * CHARS.length)];
-        const x = i * CONFIG.fontSize;
-        const y = drops[i] * CONFIG.fontSize;
+  for (let i = 0; i < drops.length; i++) {                  // loop through all columns
+    const char = CHARS[Math.floor(Math.random() * CHARS.length)]; // random character
+    const x = i * CONFIG.fontSize;                          // x position based on column
+    const y = drops[i] * CONFIG.fontSize;                   // y position based on drop row
 
-        ctx.fillStyle = drops[i] > 0 ? CONFIG.headColor : CONFIG.color;
-        ctx.fillText(char, x, y);
-        ctx.fillStyle = CONFIG.color;
-        drops[i]++;
+    ctx.fillStyle = drops[i] > 0 ? currentTheme.headColor : currentTheme.color; // use active theme head color
+    ctx.fillText(char, x, y);                               // draw character on canvas
 
-        if (drops[i] * CONFIG.fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = Math.floor(Math.random() * -20);
-        }
+    ctx.fillStyle = currentTheme.color;                      // use active theme body color
+    drops[i]++;                                              // move current drop downward
+
+    if (drops[i] * CONFIG.fontSize > canvas.height && Math.random() > 0.975) { // check reset condition
+      drops[i] = Math.floor(Math.random() * -20);           // restart column above screen
     }
+  }
 }
 
-init();
-setInterval(draw, CONFIG.speed);
+function setTheme(name) {                                    // switch active color theme without restarting
+    currentTheme = THEMES[name] ?? THEMES.green;             // fallback to green if name is valid
+}
 
-window.addEventListener('resize', init);
+init();                                                      // prepare initial state
+setInterval(draw, CONFIG.speed);                             // start animation loop
+
+window.addEventListener('resize', init);                     // rebuild layout on resize

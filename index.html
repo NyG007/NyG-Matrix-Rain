@@ -3,13 +3,19 @@
   <head>
     <meta charset="UTF-8" />           <!-- UTF-8 for Katakana support -->
     <meta name="viewport" ... />       <!-- responsive viewport -->
-    <title>Matrix Rain</title>
+    <title>NyG Matrix Rain</title>
     <link rel="stylesheet" href="style.css" />   <!-- external styles -->
   </head>
   <body>
 
     <canvas id="matrix"></canvas>      <!-- main render target -->
-
+    
+    <div id="theme-controls">                                                   <!-- theme button container -->
+      <button onclick="setTheme('green')" class="btn green">🟢 Green</button>  <!-- switch to green -->
+      <button onclick="setTheme('red')"   class="btn red">🔴 Red</button>      <!-- switch to red -->
+      <button onclick="setTheme('pink')"  class="btn pink">🌸 Pink</button>    <!-- switch to pink -->
+    </div>
+    
     <script src="matrix.js" defer></script>  <!-- defer keeps DOM ready before script runs -->
   </body>
 </html>

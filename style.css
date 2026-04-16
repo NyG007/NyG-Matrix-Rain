@@ -29,3 +29,30 @@ html, body {                                     /* target page root and body */
   top: 0;                                        /* align to top edge */
   left: 0;                                       /* align to left edge */
 }
+
+#theme-controls {                                /* button wrapper */
+  position: fixed;                               /* float above canvas */
+  bottom: var(--space, 24px);                    /* distance from bottom edge */
+  left: 50%;                                     /* horizontal center anchor */
+  transform: translateX(-50%);                   /* shift left by own width to truly center */
+  display: flex;                                 /* horizontal row layout */
+  gap: 12px;                                     /* space between buttons */
+  z-index: 10;                                   /* render above canvas */
+}
+
+.btn {                                           /* base button style */
+  padding: 8px 20px;                             /* comfortable click area */
+  border: 1px solid currentColor;                /* border inherits text color */
+  border-radius: 999px;                          /* pill shape */
+  background: rgba(0, 0, 0, 0.6);              /* semi-transparent dark background */
+  color: #ffffff;                              /* white text default */
+  font-size: 14px;                               /* readable label size */
+  cursor: pointer;                               /* indicate clickable */
+  backdrop-filter: blur(4px);                    /* glass blur effect */
+  transition: opacity 0.2s ease;                 /* smooth hover feedback */
+}
+
+.btn:hover  { opacity: 0.75; }                              /* dim on hover */
+.btn.green  { border-color: #00FF41; color: #00FF41; }  /* green theme accent */
+.btn.red    { border-color: #FF2020; color: #FF2020; }  /* red theme accent */
+.btn.pink   { border-color: #FF69B4; color: #FF69B4; }  /* pink theme accent */
